@@ -1,0 +1,51 @@
+{
+  "name": "WPILib 2027 Robot Sim",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postAttachCommand": "bash .devcontainer/post-attach.sh",
+  "waitFor": "postCreateCommand",
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "vscode"
+    }
+  },
+  "remoteEnv": {
+    "DISPLAY": ":1",
+    "SDL_VIDEODRIVER": "x11",
+    "LIBGL_ALWAYS_SOFTWARE": "1"
+  },
+  "init": true,
+  "runArgs": [
+    "--shm-size=2g"
+  ],
+  "forwardPorts": [6080, 5901],
+  "portsAttributes": {
+    "6080": {
+      "label": "Sim desktop (noVNC)",
+      "onAutoForward": "notify"
+    },
+    "5901": {
+      "label": "Sim desktop (VNC)",
+      "onAutoForward": "silent"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-gradle"
+      ],
+      "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "wpilib.skipSelectSimulateExtension": true
+      }
+    }
+  }
+}
